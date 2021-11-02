@@ -6,14 +6,32 @@ from django.contrib.contenttypes.fields import GenericForeignKey
 User = get_user_model()
 
 
-# category
-# product
-# cartproduct
-# cart
-# order
-# ************
-# Customer
-# Specification
+class LatestProductsManager:
+
+    @staticmethod
+    def get_products_for_main_page(*args, **kwargs):
+        with_respect_to = kwargs.get('with_respect_to')     # отображать некие товары первыми
+        products = []
+        ct_models = ContentType.objects.filter(model__in=args)
+        for ct_model in ct_models:
+            model_products = ct_model.model_class()._base_manager.all().order_by('-id')[:5]
+            products.extend(model_products)
+        if with_respect_to:  # Проверка на модель
+            ct_model = ContentType.objects.filter(model=with_respect_to)
+            if ct_model.exists():
+                if with_respect_to in args:
+                    return sorted(
+                        products, key=lambda x: x.__class__._meta.model_name.startswith(with_respect_to), reverse=True
+                    )
+        return products
+
+
+class LatestProducts:
+
+    objects = LatestProductsManager()
+
+
+
 
 class Category(models.Model):
 
@@ -47,25 +65,33 @@ class Product(models.Model):
     #     return self.__class__.__name__.lower()
 
 
-
-
-
-
 class CartProduct(models.Model):
+    XS = '39'
+    S = '41'
+    M = '43'
+    L = '45'
+    SIZE = (
+        (XS, '39'),
+        (S, '41'),
+        (M, '43'),
+        (L, '45'),
+    )
     user = models.ForeignKey('Customer', verbose_name='Покупатель', on_delete=models.CASCADE)
     cart = models.ForeignKey('Cart', verbose_name='Корзина', on_delete=models.CASCADE, related_name='related_products')
     content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
     object_id = models.PositiveIntegerField()
     content_object = GenericForeignKey('content_type', 'object_id')
+    size = models.CharField(choices=SIZE, default=S, max_length=2, verbose_name='Размер обуви')
     qty = models.PositiveIntegerField(default=1)
     final_price = models.DecimalField(max_digits=9, decimal_places=2, verbose_name='Общая цена')
 
     def __str__(self):
-        return "Продукт: {} (для корзины)".format(self.product.title)
+        return "Продукт: {} (для корзины)".format(self.content_object.title)
 
     # def save(self, *args, **kwargs):
     #     self.final_price = self.qty * self.content_object.price
     #     super().save(*args, **kwargs)
+
 
 class Cart(models.Model):
     owner = models.ForeignKey('Customer', null=True, verbose_name='Владелец', on_delete=models.CASCADE)
@@ -92,18 +118,17 @@ class Customer(models.Model):
 class Winter(Product):
     season = models.CharField(max_length=255, verbose_name='Рекомендуемый сезон для обуви')
     gender = models.CharField(max_length=255, verbose_name='Пол')
-    size = models.CharField(max_length=255, verbose_name='Размер обуви')
-    top_material = models.CharField(max_length=255, verbose_name='Верхний материал')
+    top_material = models.CharField(max_length=255, verbose_name='Материал верха')
     sole_material = models.CharField(max_length=255, verbose_name='Материал подошвы')
 
     def __str__(self):
         return "{} : {}".format(self.category.name, self.title)
 
+
 class Summer(Product):
     season = models.CharField(max_length=255, verbose_name='Рекомендуемый сезон для обуви')
     gender = models.CharField(max_length=255, verbose_name='Пол')
-    size = models.CharField(max_length=255, verbose_name='Размер обуви')
-    top_material = models.CharField(max_length=255, verbose_name='Верхний материал')
+    top_material = models.CharField(max_length=255, verbose_name='Материал верха')
     sole_material = models.CharField(max_length=255, verbose_name='Материал подошвы')
 
     def __str__(self):
