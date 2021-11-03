@@ -109,7 +109,7 @@ class CartProduct(models.Model):
     content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
     object_id = models.PositiveIntegerField()
     content_object = GenericForeignKey('content_type', 'object_id')
-    size = models.CharField(choices=SIZE, default=S, max_length=2, verbose_name='Размер обуви')
+    size = models.CharField(choices=SIZE, default=0, max_length=2, verbose_name='Размер обуви')
     qty = models.PositiveIntegerField(default=1)
     final_price = models.DecimalField(max_digits=9, decimal_places=2, verbose_name='Общая цена')
 
