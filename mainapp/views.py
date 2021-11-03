@@ -23,10 +23,6 @@ class BaseView(CartMixin, View):
         }
         return render(request, 'base.html', context)
 
-# def test_view(request):
-#     categories = Category.objects.get_categories_for_left_sidebar()
-#     return render(request, 'base.html', {'categories': categories})
-
 
 class ProductDetailView(CartMixin, CategoryDetailMixin, DetailView):
 
