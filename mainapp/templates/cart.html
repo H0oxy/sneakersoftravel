@@ -7,6 +7,7 @@
     <thead>
     <tr>
       <th scope="col">Наименование</th>
+      <th scope="col">Размер</th>
       <th scope="col">Изображение</th>
       <th scope="col">Цена</th>
       <th scope="col">Кол-во</th>
@@ -18,6 +19,7 @@
     {% for item in cart.products.all %}
     <tr>
         <th scope="row">{{ item.content_object.title }}</th>
+        <th scope="row">{{ item.size }}</th>
         <td class="w-25"><img  src="{{ item.content_object.image.url }}" class="img-fluid"></td>
         <td>{{ item.content_object.price }}</td>
         <td>{{ item.qty }}</td>
