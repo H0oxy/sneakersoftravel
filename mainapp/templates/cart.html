@@ -32,7 +32,17 @@
         {% for item in cart.products.all %}
         <tr>
             <th scope="row">{{ item.content_object.title }}</th>
-            <th scope="row">{{ item.size }}</th>
+            <td>
+                <form action="{% url 'change_size' ct_model=item.content_object.get_model_name slug=item.content_object.slug %}" method="POST">
+                    {% csrf_token %}
+                    <select name="size" class="form-control">
+                        {% for cart_product in size %}
+                            <option name="size" value="asd">{{ item.size }}</option>
+                        {% endfor %}
+                    </select>
+                    <input type="submit" class="btn btn-outline-dark mt-1" value="✓">
+                </form>
+            </td>
             <td class="w-25"><img  src="{{ item.content_object.image.url }}" class="img-fluid"></td>
             <td>{{ item.content_object.price }}
             </td>

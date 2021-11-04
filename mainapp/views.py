@@ -116,7 +116,7 @@ class ChangeSizeView(CartMixin, View):
         cart_product = CartProduct.objects.get(
             user=self.cart.owner, cart=self.cart, content_type=content_type, object_id=product.id
         )
-        size = int(request.POST.get('size'))
+        size = [(request.POST.get('size'))]
         cart_product.size = size
         cart_product.save()
         self.cart.save()
