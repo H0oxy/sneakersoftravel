@@ -116,10 +116,10 @@ class ChangeSizeView(CartMixin, View):
         cart_product = CartProduct.objects.get(
             user=self.cart.owner, cart=self.cart, content_type=content_type, object_id=product.id
         )
-        size = [(request.POST.get('size'))]
+        size = int(request.POST.get('size'))
         cart_product.size = size
         cart_product.save()
-        self.cart.save()
+        recalic_cart(self.cart)
         messages.add_message(request, messages.INFO, "Размер успешно выбран")
         return HttpResponseRedirect('/cart/')
 

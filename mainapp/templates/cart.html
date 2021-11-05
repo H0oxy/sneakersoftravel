@@ -35,11 +35,8 @@
             <td>
                 <form action="{% url 'change_size' ct_model=item.content_object.get_model_name slug=item.content_object.slug %}" method="POST">
                     {% csrf_token %}
-                    <select name="size" class="form-control">
-                        {% for cart_product in size %}
-                            <option name="size" value="asd">{{ item.size }}</option>
-                        {% endfor %}
-                    </select>
+                    <input type="number" class="form-control" style="width: 64px;" name="size" min="35" max="46" value="{{ item.size }}">
+
                     <input type="submit" class="btn btn-outline-dark mt-1" value="✓">
                 </form>
             </td>

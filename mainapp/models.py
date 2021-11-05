@@ -83,7 +83,9 @@ class Product(models.Model):
     category = models.ForeignKey(Category, verbose_name='Категория', on_delete=models.CASCADE)
     title = models.CharField(max_length=255, verbose_name='Наименование')
     slug = models.SlugField(unique=True)
-    image = models.ImageField(verbose_name='Изображение')
+    image = models.ImageField(default='', verbose_name='Изображение')
+    imagesecond = models.ImageField(default='', verbose_name='Второе Изображение')
+    imagethird = models.ImageField(default='', verbose_name='Третье Изображение')
     description = models.TextField(verbose_name='Описание', null=True)
     price = models.DecimalField(max_digits=9, decimal_places=2, verbose_name='Цена')
 
@@ -95,22 +97,12 @@ class Product(models.Model):
 
 
 class CartProduct(models.Model):
-    XS = '39'
-    S = '41'
-    M = '43'
-    L = '45'
-    SIZE = (
-        (XS, '39'),
-        (S, '41'),
-        (M, '43'),
-        (L, '45'),
-    )
     user = models.ForeignKey('Customer', verbose_name='Покупатель', on_delete=models.CASCADE)
     cart = models.ForeignKey('Cart', verbose_name='Корзина', on_delete=models.CASCADE, related_name='related_products')
     content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
     object_id = models.PositiveIntegerField()
     content_object = GenericForeignKey('content_type', 'object_id')
-    size = models.CharField(choices=SIZE, max_length=2, verbose_name='Размер обуви')
+    size = models.PositiveIntegerField(default=41)
     qty = models.PositiveIntegerField(default=1)
     final_price = models.DecimalField(max_digits=9, decimal_places=2, verbose_name='Общая цена')
 
@@ -142,7 +134,6 @@ class Customer(models.Model):
 
     def __str__(self):
         return "Покупатель: {} {}".format(self.user.first_name, self.user.last_name)
-
 
 
 class Winter(Product):
