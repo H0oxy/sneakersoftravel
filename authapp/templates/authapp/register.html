@@ -1,0 +1,18 @@
+{% extends 'mainapp/base.html' %}
+
+{% block content %}
+
+    <header class="bg-dark py-1">
+        <div class="container px-4 px-lg-5 my-5">
+            <div class="text-center text-white">
+                <h1 class="display-4 fw-bolder">Регистрация</h1>
+                <p class="lead fw-normal text-white-50 mb-0">Пожалуйста, введита данные ниже для регистрации</p>
+            </div>
+        </div>
+    </header>
+    <form method="post" class="pb-5" style="width: 38%; margin-left: auto; margin-right: auto; margin-top: 50px;">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button class="blue-button send btn btn-dark" name="submit">Зарегистрироваться</button>
+    </form>
+{% endblock %}

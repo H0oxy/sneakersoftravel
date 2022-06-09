@@ -74,6 +74,10 @@ class Category(models.Model):
     def get_absolute_url(self):
         return reverse('category_detail', kwargs={'slug': self.slug})
 
+    class Meta:
+        verbose_name = 'категория'
+        verbose_name_plural = 'категории'
+
 
 class Product(models.Model):
 
@@ -83,7 +87,9 @@ class Product(models.Model):
     category = models.ForeignKey(Category, verbose_name='Категория', on_delete=models.CASCADE)
     title = models.CharField(max_length=255, verbose_name='Наименование')
     slug = models.SlugField(unique=True)
-    image = models.ImageField(verbose_name='Изображение')
+    image = models.ImageField(default='', verbose_name='Изображение')
+    imagesecond = models.ImageField(default='', verbose_name='Второе Изображение')
+    imagethird = models.ImageField(default='', verbose_name='Третье Изображение')
     description = models.TextField(verbose_name='Описание', null=True)
     price = models.DecimalField(max_digits=9, decimal_places=2, verbose_name='Цена')
 
@@ -94,23 +100,15 @@ class Product(models.Model):
         return self.__class__.__name__.lower()
 
 
+
+
 class CartProduct(models.Model):
-    XS = '39'
-    S = '41'
-    M = '43'
-    L = '45'
-    SIZE = (
-        (XS, '39'),
-        (S, '41'),
-        (M, '43'),
-        (L, '45'),
-    )
     user = models.ForeignKey('Customer', verbose_name='Покупатель', on_delete=models.CASCADE)
     cart = models.ForeignKey('Cart', verbose_name='Корзина', on_delete=models.CASCADE, related_name='related_products')
     content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
     object_id = models.PositiveIntegerField()
     content_object = GenericForeignKey('content_type', 'object_id')
-    size = models.CharField(choices=SIZE, max_length=2, verbose_name='Размер обуви')
+    size = models.PositiveIntegerField(default=41)
     qty = models.PositiveIntegerField(default=1)
     final_price = models.DecimalField(max_digits=9, decimal_places=2, verbose_name='Общая цена')
 
@@ -120,6 +118,10 @@ class CartProduct(models.Model):
     def save(self, *args, **kwargs):
         self.final_price = self.qty * self.content_object.price
         super().save(*args, **kwargs)
+
+    class Meta:
+        verbose_name = 'товар для корзины'
+        verbose_name_plural = 'товары для корзины'
 
 
 class Cart(models.Model):
@@ -133,6 +135,10 @@ class Cart(models.Model):
     def __str__(self):
         return str(self.id)
 
+    class Meta:
+        verbose_name = 'Корзина пользователя'
+        verbose_name_plural = 'Корзина пользователей'
+
 
 class Customer(models.Model):
     user = models.ForeignKey(User, verbose_name='Пользователь', on_delete=models.CASCADE)
@@ -143,6 +149,9 @@ class Customer(models.Model):
     def __str__(self):
         return "Покупатель: {} {}".format(self.user.first_name, self.user.last_name)
 
+    class Meta:
+        verbose_name = 'покупатель'
+        verbose_name_plural = 'покупатели'
 
 
 class Winter(Product):
@@ -157,6 +166,10 @@ class Winter(Product):
     def get_absolute_url(self):
         return get_product_url(self, 'product_detail')
 
+    class Meta:
+        verbose_name = 'Зимняя обувь'
+        verbose_name_plural = 'Зимняя обувь'
+
 
 class Summer(Product):
     season = models.CharField(max_length=255, verbose_name='Рекомендуемый сезон для обуви')
@@ -169,6 +182,10 @@ class Summer(Product):
 
     def get_absolute_url(self):
         return get_product_url(self, 'product_detail')
+
+    class Meta:
+        verbose_name = 'Летняя обувь'
+        verbose_name_plural = 'Летняя обувь'
 
 
 class Order(models.Model):
@@ -216,3 +233,7 @@ class Order(models.Model):
 
     def __str__(self):
         return str(self.id)
+
+    class Meta:
+        verbose_name = 'Заказ'
+        verbose_name_plural = 'Заказы'

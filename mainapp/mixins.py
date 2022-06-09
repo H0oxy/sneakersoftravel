@@ -29,7 +29,7 @@ class CartMixin(View):
             customer = Customer.objects.filter(user=request.user).first()   # search user
             if not customer:
                 customer = Customer.objects.create(
-                    user = request.user
+                    user=request.user
                 )
             cart = Cart.objects.filter(owner=customer, in_order=False).first()  # search cart
             if not cart:
