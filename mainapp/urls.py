@@ -13,5 +13,6 @@ urlpatterns = [
     path('change-size/<str:ct_model>/<str:slug>/', ChangeSizeView.as_view(), name='change_size'),
     path('checkout/', CheckoutView.as_view(), name='checkout'),
     path('make-order/', MakeOrderView.as_view(), name='make_order'),
+
 ]
 

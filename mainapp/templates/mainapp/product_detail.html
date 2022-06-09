@@ -1,11 +1,11 @@
-{% extends 'base.html' %}
+{% extends 'mainapp/base.html' %}
 {% load specifications %}
 
 {% block content %}
     <nav aria-label="breadcrumb" class="bg-light">
       <ol class="breadcrumb" style="margin-left: 180px;">
-        <li class="breadcrumb-item"><a href="{% url 'base' %}">Главная</a></li>
-        <li class="breadcrumb-item"><a href="{{ product.category.get_absolute_url }}">{{ product.category.name }}</a></li>
+        <li class="breadcrumb-item"><a style="text-decoration: none;" href="{% url 'base' %}">Главная</a></li>
+        <li class="breadcrumb-item"><a style="text-decoration: none;" href="{{ product.category.get_absolute_url }}">{{ product.category.name }}</a></li>
         <li class="breadcrumb-item active" aria-current="page">{{ product.title }}</li>
       </ol>
     </nav>

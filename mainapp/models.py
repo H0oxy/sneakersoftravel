@@ -74,6 +74,10 @@ class Category(models.Model):
     def get_absolute_url(self):
         return reverse('category_detail', kwargs={'slug': self.slug})
 
+    class Meta:
+        verbose_name = 'категория'
+        verbose_name_plural = 'категории'
+
 
 class Product(models.Model):
 
@@ -96,6 +100,8 @@ class Product(models.Model):
         return self.__class__.__name__.lower()
 
 
+
+
 class CartProduct(models.Model):
     user = models.ForeignKey('Customer', verbose_name='Покупатель', on_delete=models.CASCADE)
     cart = models.ForeignKey('Cart', verbose_name='Корзина', on_delete=models.CASCADE, related_name='related_products')
@@ -113,6 +119,10 @@ class CartProduct(models.Model):
         self.final_price = self.qty * self.content_object.price
         super().save(*args, **kwargs)
 
+    class Meta:
+        verbose_name = 'товар для корзины'
+        verbose_name_plural = 'товары для корзины'
+
 
 class Cart(models.Model):
     owner = models.ForeignKey('Customer', null=True, verbose_name='Владелец', on_delete=models.CASCADE)
@@ -125,6 +135,10 @@ class Cart(models.Model):
     def __str__(self):
         return str(self.id)
 
+    class Meta:
+        verbose_name = 'Корзина пользователя'
+        verbose_name_plural = 'Корзина пользователей'
+
 
 class Customer(models.Model):
     user = models.ForeignKey(User, verbose_name='Пользователь', on_delete=models.CASCADE)
@@ -134,6 +148,10 @@ class Customer(models.Model):
 
     def __str__(self):
         return "Покупатель: {} {}".format(self.user.first_name, self.user.last_name)
+
+    class Meta:
+        verbose_name = 'покупатель'
+        verbose_name_plural = 'покупатели'
 
 
 class Winter(Product):
@@ -148,6 +166,10 @@ class Winter(Product):
     def get_absolute_url(self):
         return get_product_url(self, 'product_detail')
 
+    class Meta:
+        verbose_name = 'Зимняя обувь'
+        verbose_name_plural = 'Зимняя обувь'
+
 
 class Summer(Product):
     season = models.CharField(max_length=255, verbose_name='Рекомендуемый сезон для обуви')
@@ -160,6 +182,10 @@ class Summer(Product):
 
     def get_absolute_url(self):
         return get_product_url(self, 'product_detail')
+
+    class Meta:
+        verbose_name = 'Летняя обувь'
+        verbose_name_plural = 'Летняя обувь'
 
 
 class Order(models.Model):
@@ -207,3 +233,7 @@ class Order(models.Model):
 
     def __str__(self):
         return str(self.id)
+
+    class Meta:
+        verbose_name = 'Заказ'
+        verbose_name_plural = 'Заказы'

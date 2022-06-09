@@ -1,10 +1,9 @@
-{% extends 'base.html' %}
-
+{% extends 'mainapp/base.html' %}
 
 {% block content %}
 <nav aria-label="breadcrumb" class="bg-light">
   <ol class="breadcrumb" style="margin-left: 180px;">
-    <li class="breadcrumb-item"><a href="{% url 'base' %}">Главная</a></li>
+    <li class="breadcrumb-item"><a style="text-decoration: none;" href="{% url 'base' %}">Главная</a></li>
     <li class="breadcrumb-item active">{{ category.name }}</li>
   </ol>
 </nav>
@@ -33,7 +32,7 @@
             <div class="card-body p-4">
                 <div class="text-center">
                     <!-- Product name-->
-                    <a href="{{ product.get_absolute_url }}"><h5 class="fw-bolder" style="font-size: 18px;">{{ product.title }}</h5></a>
+                    <a style="text-decoration: none;" href="{{ product.get_absolute_url }}"><h5  class="fw-bolder" style="font-size: 18px; color: black;">{{ product.title }}</h5></a>
                     <!-- Product price-->
                     <h6>{{ product.price }} руб.</h6>
                 </div>
