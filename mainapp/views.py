@@ -21,7 +21,7 @@ class BaseView(CartMixin, View):
             'products': products,
             'cart': self.cart,
         }
-        return render(request, 'base.html', context)
+        return render(request, 'mainapp/base.html', context)
 
 
 class ProductDetailView(CartMixin, CategoryDetailMixin, DetailView):
@@ -37,7 +37,7 @@ class ProductDetailView(CartMixin, CategoryDetailMixin, DetailView):
         return super().dispatch(request, *args, **kwargs)
 
     context_object_name = 'product'
-    template_name = 'product_detail.html'
+    template_name = 'mainapp/product_detail.html'
     slug_url_kwarg = 'slug'
 
     def get_context_data(self, **kwargs):
@@ -52,7 +52,7 @@ class CategoryDetailView(CartMixin, CategoryDetailMixin, DetailView):
     model = Category
     queryset = Category.objects.all()
     context_object_name = 'category'
-    template_name = 'category_detail.html'
+    template_name = 'mainapp/category_detail.html'
     slug_url_kwarg = 'slug'
 
     def get_context_data(self, **kwargs):
@@ -131,7 +131,7 @@ class CartView(CartMixin, View):
             'cart': self.cart,
             'categories': categories
         }
-        return render(request, 'cart.html', context)
+        return render(request, 'mainapp/cart.html', context)
 
 
 class CheckoutView(CartMixin, View):
@@ -143,7 +143,7 @@ class CheckoutView(CartMixin, View):
             'categories': categories,
             'form': form
         }
-        return render(request, 'checkout.html', context)
+        return render(request, 'mainapp/checkout.html', context)
 
 
 class MakeOrderView(CartMixin, View):
