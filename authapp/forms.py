@@ -17,11 +17,11 @@ class RegisterForm(UserCreationForm):
         model = User
         fields = (
             'username',
-            'first_name',
-            'last_name',
             'password1',
             'password2',
             'email',
+            'first_name',
+            'last_name',
         )
 
     def __init__(self, *args, **kwargs):

@@ -1,0 +1,45 @@
+.krutit {
+    width: 250px;
+    height: 250px;
+    overflow: hidden;
+
+    animation-name: rotation;
+    animation-duration: 14s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}
+
+.krutit-container {
+    overflow: hidden;
+    position: absolute;
+    right: -6em;
+    top: 16em;
+    z-index: 2;
+
+}
+
+.krutit-container-green {
+    overflow: hidden;
+    position: absolute;
+    left: -6em;
+    bottom: -16em;
+    z-index: 2;
+}
+
+@font-face {
+	font-family: 'Montserrat';
+	src: url(/static/fonts/Montserrat-Bold.ttf);
+}
+
+.text-fam {
+	font-family: 'Montserrat';
+}
+
+@keyframes rotation {
+    0% {
+        transform:rotate(0deg);
+    }
+    100% {
+        transform:rotate(-360deg);
+    }
+}

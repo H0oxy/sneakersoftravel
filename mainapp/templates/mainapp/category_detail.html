@@ -1,50 +1,95 @@
 {% extends 'mainapp/base.html' %}
 
 {% block content %}
-<nav aria-label="breadcrumb" class="bg-light">
-  <ol class="breadcrumb" style="margin-left: 180px;">
-    <li class="breadcrumb-item"><a style="text-decoration: none;" href="{% url 'base' %}">Главная</a></li>
-    <li class="breadcrumb-item active">{{ category.name }}</li>
-  </ol>
-</nav>
+    <nav aria-label="breadcrumb" class="bg-light">
+        <ol class="breadcrumb" style="margin-left: 180px;">
+            <li class="breadcrumb-item"><a style="text-decoration: none; color: #676767;" href="{% url 'base' %}">Главная</a>
+            </li>
+            <li class="breadcrumb-item active">{{ category.name }}</li>
+        </ol>
+    </nav>
 
-<section class="py-5">
-<div class="container px-4 px-lg-5 mt-5">
-<div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4">
-    {% for product in category_products %}
-    <div class="col mb-5">
-        <div class="card h-100 shadow">
-            <!-- Product image-->
-            <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
-                <div class="carousel-inner">
-                    <div class="carousel-item active">
-                        <a href="{{ product.get_absolute_url }}"><img src="{{ product.image.url }}" class="card-img-top"></a>
-                    </div>
-                    <div class="carousel-item">
-                        <a href="{{ product.get_absolute_url }}"><img src="{{ product.imagesecond.url }}" class="card-img-top"></a>
-                    </div>
-                    <div class="carousel-item">
-                        <a href="{{ product.get_absolute_url }}"><img src="{{ product.imagethird.url }}" class="card-img-top"></a>
-                    </div>
+    <header class="bg-dark py-5 asd"
+            style="background-image: url(/media/bg-nike-opacity.png); background-position: center; background-size: cover; ">
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-secondary  alert-dismissible fade show" role="alert"
+                     style="margin-top: -3rem!important; text-align: center; width: 60%; margin: auto;">
+                    <strong>{{ message }}</strong>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
-            </div>
-            <!-- Product details-->
-            <div class="card-body p-4">
-                <div class="text-center">
-                    <!-- Product name-->
-                    <a style="text-decoration: none;" href="{{ product.get_absolute_url }}"><h5  class="fw-bolder" style="font-size: 18px; color: black;">{{ product.title }}</h5></a>
-                    <!-- Product price-->
-                    <h6>{{ product.price }} руб.</h6>
-                </div>
-            </div>
-            <!-- Product actions-->
-            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="{% url 'add_to_cart' ct_model=product.get_model_name slug=product.slug %}">Добавить в корзину</a></div>
+            {% endfor %}
+        {% endif %}
+        <div class="container px-4 px-lg-5 my-5">
+            <div class="text-center text-white">
+                <h1 class="display-4 fw-bolder">{{ category.name }}</h1>
+                <p class="lead fw-normal text-white-50 mb-0">Вон та пара тебе точно понравится</p>
             </div>
         </div>
-    </div>
-    {% endfor %}
-</div>
-</div>
-</section>
+    </header>
+
+    <section class="py-5">
+        <div class="container px-4 px-lg-5 mt-5">
+            <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4">
+                {% for product in category_products %}
+                    <div class="col mb-5">
+                        <div class="card h-100 shadow">
+                            <!-- Product image-->
+                            <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+                                <div class="carousel-inner">
+                                    <div class="carousel-item active">
+                                        <a href="{{ product.get_absolute_url }}"><img src="{{ product.image.url }}"
+                                                                                      class="card-img-top"></a>
+                                    </div>
+                                    <div class="carousel-item">
+                                        <a href="{{ product.get_absolute_url }}"><img
+                                                src="{{ product.imagesecond.url }}" class="card-img-top"></a>
+                                    </div>
+                                    <div class="carousel-item">
+                                        <a href="{{ product.get_absolute_url }}"><img src="{{ product.imagethird.url }}"
+                                                                                      class="card-img-top"></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Product details-->
+                            <div class="card-body p-4">
+                                <div class="text-center">
+                                    <!-- Product name-->
+                                    <a style="text-decoration: none;" href="{{ product.get_absolute_url }}"><h5
+                                            class="fw-bolder"
+                                            style="font-size: 18px; color: black;">{{ product.title }}</h5></a>
+                                    <!-- Product price-->
+                                    <h6>{{ product.price }} руб.</h6>
+                                </div>
+                                <div>
+                                    Пол: {{ product.gender }}<br>
+                                    Сезон: {{ product.season }}
+                                </div>
+                            </div>
+                            <!-- Product actions-->
+                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+
+                                {% if user.is_authenticated %}
+                                    <div class="text-center">
+                                        <a class="btn btn-outline-dark mt-auto"
+                                           href="{% url 'add_to_cart' ct_model=product.get_model_name slug=product.slug %}">
+                                            Добавить в корзину
+                                        </a>
+                                    </div>
+                                {% endif %}
+                                {% if not user.is_authenticated %}
+                                    <div class="text-center">
+                                        <a class="btn btn-outline-dark mt-auto"
+                                           href="{% url 'authapp:login' %}">
+                                            Добавить в корзину
+                                        </a>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
 {% endblock content %}
