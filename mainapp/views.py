@@ -1,10 +1,11 @@
 from django.db import transaction
 from django.shortcuts import render
+from django.template import loader
 from django.views.generic import DetailView, View
 from django.contrib.contenttypes.models import ContentType
 from django.contrib import messages
-from django.http import HttpResponseRedirect
-from .models import Winter, Summer, Category, LatestProducts, Customer, Cart, CartProduct
+from django.http import HttpResponseRedirect, HttpResponse
+from .models import Sneakers, Boots, Category, LatestProducts, Customer, Cart, CartProduct
 from .mixins import CategoryDetailMixin, CartMixin
 from .forms import OrderForm
 from .utility import recalic_cart
@@ -14,7 +15,7 @@ class BaseView(CartMixin, View):
     def get(self, request, *args, **kwargs):
         categories = Category.objects.get_categories_for_left_sidebar()
         products = LatestProducts.objects.get_products_for_main_page(
-            'winter', 'summer', with_respect_to='winter'
+            'sneakers', 'boots', with_respect_to='sneakers'
         )
         context = {
             'categories': categories,
@@ -27,8 +28,8 @@ class BaseView(CartMixin, View):
 class ProductDetailView(CartMixin, CategoryDetailMixin, DetailView):
 
     CT_MODEL_MODEL_CLASS = {
-        'winter': Winter,
-        'summer': Summer
+        'sneakers': Sneakers,
+        'boots': Boots
     }
 
     def dispatch(self, request, *args, **kwargs):
@@ -171,3 +172,7 @@ class MakeOrderView(CartMixin, View):
             messages.add_message(request, messages.INFO, 'Спасибо за заказ! Менеджер свяжется с Вами')
             return HttpResponseRedirect('/')
         return HttpResponseRedirect('/checkout/')
+
+
+def render_about(request):
+    return render(request, 'mainapp/about.html')

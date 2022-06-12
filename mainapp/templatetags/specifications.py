@@ -23,13 +23,13 @@ TABLE_CONTENT = """
 
 
 PRODUCT_SPEC = {
-    'winter': {
+    'sneakers': {
         'Рекомендуемый сезон для обуви': 'season',
         'Пол': 'gender',
         'Материал верха': 'top_material',
         'Материал подошвы': 'sole_material',
     },
-    'summer': {
+    'boots': {
         'Рекомендуемый сезон для обуви': 'season',
         'Пол': 'gender',
         'Материал верха': 'top_material',

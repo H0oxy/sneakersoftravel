@@ -45,15 +45,15 @@ class LatestProducts:
 class CategoryManager(models.Manager):
 
     CATEGORY_NAME_COUNT_NAME = {
-        'Зимняя обувь': 'winter__count',
-        'Летняя обувь': 'summer__count'
+        'Кроссовки и кеды': 'sneakers__count',
+        'Ботинки': 'boots__count'
     }
 
     def get_queryset(self):
         return super().get_queryset()
 
     def get_categories_for_left_sidebar(self):
-        models = get_models_for_count('winter', 'summer')
+        models = get_models_for_count('sneakers', 'boots')
         qs = list(self.get_queryset().annotate(*models))
         data = [
             dict(name=c.name, url=c.get_absolute_url(), count=getattr(c, self.CATEGORY_NAME_COUNT_NAME[c.name]))
@@ -154,7 +154,7 @@ class Customer(models.Model):
         verbose_name_plural = 'покупатели'
 
 
-class Winter(Product):
+class Sneakers(Product):
     season = models.CharField(max_length=255, verbose_name='Рекомендуемый сезон для обуви')
     gender = models.CharField(max_length=255, verbose_name='Пол')
     top_material = models.CharField(max_length=255, verbose_name='Материал верха')
@@ -167,11 +167,11 @@ class Winter(Product):
         return get_product_url(self, 'product_detail')
 
     class Meta:
-        verbose_name = 'Зимняя обувь'
-        verbose_name_plural = 'Зимняя обувь'
+        verbose_name = 'Кроссовки и кеды'
+        verbose_name_plural = 'Кроссовки и кеды'
 
 
-class Summer(Product):
+class Boots(Product):
     season = models.CharField(max_length=255, verbose_name='Рекомендуемый сезон для обуви')
     gender = models.CharField(max_length=255, verbose_name='Пол')
     top_material = models.CharField(max_length=255, verbose_name='Материал верха')
@@ -184,8 +184,8 @@ class Summer(Product):
         return get_product_url(self, 'product_detail')
 
     class Meta:
-        verbose_name = 'Летняя обувь'
-        verbose_name_plural = 'Летняя обувь'
+        verbose_name = 'Ботинки'
+        verbose_name_plural = 'Ботинки'
 
 
 class Order(models.Model):

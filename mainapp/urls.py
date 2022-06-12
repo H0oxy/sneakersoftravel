@@ -1,6 +1,8 @@
 from django.urls import path
 
-from .views import BaseView, ProductDetailView, CategoryDetailView, CartView, AddToCartView, DeleteFromCartView, ChangeQTYView, ChangeSizeView, CheckoutView, MakeOrderView
+from . import views
+from .views import BaseView, ProductDetailView, CategoryDetailView, CartView, AddToCartView, DeleteFromCartView, \
+    ChangeQTYView, ChangeSizeView, CheckoutView, MakeOrderView, render_about
 
 urlpatterns = [
     path('', BaseView.as_view(), name='base'),
@@ -13,6 +15,8 @@ urlpatterns = [
     path('change-size/<str:ct_model>/<str:slug>/', ChangeSizeView.as_view(), name='change_size'),
     path('checkout/', CheckoutView.as_view(), name='checkout'),
     path('make-order/', MakeOrderView.as_view(), name='make_order'),
+
+    path('about/', views.render_about),
 
 ]
 

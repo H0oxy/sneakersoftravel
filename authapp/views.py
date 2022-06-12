@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
+from mainapp.views import *
 
 from authapp.forms import LoginForm, RegisterForm
 
@@ -28,7 +29,7 @@ def register(request):
         if form.is_valid():
             form.save()
             messages.success(request, 'Вы успешно зарегистрировались!')
-            return HttpResponseRedirect(reverse('base'))
+            return HttpResponseRedirect(reverse('authapp:login'))
     else:
         form = RegisterForm()
     content = {
