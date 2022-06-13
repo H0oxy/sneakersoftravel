@@ -2,9 +2,16 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
+    <header class="bg-dark py-3">
 
-<div style="width: 80%; margin: auto;" class="bg-light border border-dark rounded mb-5 mt-5">
-    <h3 class="text-center mt-5 mb-5">Оформление заказа</h3>
+        <div class="container px-4 px-lg-5 my-5">
+            <div class="text-center text-white">
+                    <h3 class="text-center">Оформление заказа</h3>
+            </div>
+        </div>
+    </header>
+<div style="width: 80%; margin: auto;" class="bg-light border rounded mb-5 mt-5">
+
     <table class="table">
         <thead>
         <tr>
@@ -24,10 +31,8 @@
             <th scope="row">{{ item.size }}</th>
             <td class="w-25"><img  src="{{ item.content_object.image.url }}" class="img-fluid"></td>
             <td>{{ item.content_object.price }}
-            </td>{{ item.qty }}<td>
+            <td>{{ item.qty }}</td>
             <td>{{ item.final_price }} руб.</td>
-
-
         </tr>
         {% endfor %}
         <tr>
@@ -41,7 +46,8 @@
         </tbody>
     </table>
 </div>
-<div style="width: 60%; margin: auto;" class="bg-light border border-dark rounded mb-5">
+
+<div style="width: 60%; margin: auto;" class="bg-light border rounded mb-5">
 <h3 class="text-center mt-5 mb-5">Форма заказа</h3>
 <form action="{% url 'make_order' %}" method="POST">
   {% csrf_token %}

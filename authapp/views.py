@@ -8,7 +8,9 @@ from mainapp.views import *
 from authapp.forms import LoginForm, RegisterForm
 
 
+
 def login(request):
+    categories = Category.objects.get_categories_for_left_sidebar()
     if request.method == 'POST':
         form = LoginForm(data=request.POST)
         if form.is_valid():
@@ -19,11 +21,13 @@ def login(request):
     content = {
         'title': 'Авторизация',
         'form': form,
+        'categories': categories,
     }
     return render(request, 'authapp/login.html', content)
 
 
 def register(request):
+    categories = Category.objects.get_categories_for_left_sidebar()
     if request.method == 'POST':
         form = RegisterForm(request.POST)
         if form.is_valid():
@@ -35,6 +39,7 @@ def register(request):
     content = {
         'title': 'Регистрация',
         'form': form,
+        'categories': categories,
     }
     return render(request, 'authapp/register.html', content)
 

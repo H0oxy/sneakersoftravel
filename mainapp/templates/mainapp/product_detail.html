@@ -2,16 +2,6 @@
 {% load specifications %}
 
 {% block content %}
-    <nav aria-label="breadcrumb" class="bg-light">
-        <ol class="breadcrumb" style="margin-left: 180px;">
-            <li class="breadcrumb-item"><a style="text-decoration: none; color: #000000; opacity: 80%;"
-                                           href="{% url 'base' %}">Главная</a></li>
-            <li class="breadcrumb-item"><a style="text-decoration: none; color: #000000; opacity: 80%;"
-                                           href="{{ product.category.get_absolute_url }}">{{ product.category.name }}</a>
-            </li>
-            <li class="breadcrumb-item active" ari a-current="page">{{ product.title }}</li>
-        </ol>
-    </nav>
         <header class="bg-dark py-3"
             style="background-image: url(/media/bg-cart-opacity.jpg); background-position: center; background-size: cover;">
         {% if messages %}
@@ -24,7 +14,7 @@
             {% endfor %}
         {% endif %}
         <div class="container px-4 px-lg-5 my-5">
-            <div class="text-center text-black-50">
+            <div class="text-center text-black">
                 <h5 class="display-4 fw-bolder">{{ product.title }}</h5>
 {#                <p class="lead fw-normal text-white-50 mb-0">{{ product.title }}</p>#}
             </div>
