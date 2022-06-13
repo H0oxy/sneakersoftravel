@@ -1,0 +1,4 @@
+Django==3.2.7
+django-crispy-forms
+django-extensions
+Pillow
