@@ -1,13 +1,5 @@
 {% extends 'mainapp/base.html' %}
 {% block content %}
-    <nav aria-label="breadcrumb" style="margin-left: 18.2%;" class="bg-light">
-        <ol class="breadcrumb" >
-            <li class="breadcrumb-item"><a style="text-decoration: none; color: #676767;" href="{% url 'base' %}">Главная</a>
-            </li>
-            <li class="breadcrumb-item active">{{ category.name }}</li>
-        </ol>
-    </nav>
-
     <header class="bg-dark py-5 asd"
             style="background-image: url(/media/bg-nike-opacity.png); background-position: center; background-size: cover; ">
         {% if messages %}

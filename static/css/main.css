@@ -87,10 +87,22 @@
     font-style: italic;
 }
 
-*{
-    font-family: 'Inglobal';
+@font-face {
+    font-family: 'Montserrat-Regular';
+    src: local('Montserrat Regular'), local('Montserrat-Regular'), url('/static/fonts/Montserrat-Regular.ttf') format('truetype');
+    /*font-style: italic;*/
 }
 
+*{
+    font-family: 'Montserrat-Regular';
+}
+li, p {
+    font-size: 14px;
+}
+
+.bg-cart {
+    background-color: #282828;
+}
 
 
 
