@@ -26,15 +26,6 @@
     z-index: 2;
 }
 
-@font-face {
-	font-family: 'Montserrat';
-	src: url(/static/fonts/Montserrat-Bold.ttf);
-}
-
-.text-fam {
-	font-family: 'Montserrat';
-}
-
 @keyframes rotation {
     0% {
         transform:rotate(0deg);
@@ -43,3 +34,65 @@
         transform:rotate(-360deg);
     }
 }
+
+.font-ac{
+    font-family: "AC Line";
+}
+
+*{
+    font-family: 'Gunny Rewritten';
+}
+@font-face {
+    font-family: 'AC Line';
+    src: local('AC Line'), url('/static/fonts/acline.woff2') format('woff2'), url('/static/fonts/acline.woff') format('woff'), url('/static/fonts/acline.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Gunny Rewritten';
+    src: local('Gunny Rewritten'), local('GunnyRewritten'), url('/static/fonts/gunnyrewritten.woff2') format('woff2'), url('/static/fonts/gunnyrewritten.woff') format('woff'), url('/static/fonts/gunnyrewritten.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Gagalin';
+    src: local('Gagalin'), local('Gagalin-Regular'), url('/static/fonts/Gagalin.woff2') format('woff2'), url('/static/fonts/Gagalin.woff') format('woff'), url('/static/fonts/Gagalin.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Inglobal';
+    src: local('inglobal'), url('/static/fonts/inglobal.woff2') format('woff2'), url('/static/fonts/inglobal.woff') format('woff'), url('/static/fonts/inglobal.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Inglobal';
+    src: local('inglobal Italic'), local('inglobal-Italic'), url('/static/fonts/inglobalitalic.woff2') format('woff2'), url('/static/fonts/inglobalitalic.woff') format('woff'), url('/static/fonts/inglobalitalic.ttf') format('truetype');
+    font-weight: 400;
+    font-style: italic;
+}
+@font-face {
+    font-family: 'Inglobal';
+    src: local('inglobal Bold'), local('inglobal-Bold'), url('/static/fonts/inglobalbold.woff2') format('woff2'), url('/static/fonts/inglobalbold.woff') format('woff'), url('/static/fonts/inglobalbold.ttf') format('truetype');
+    font-weight: 700;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Inglobal';
+    src: local('inglobal Bold Italic'), local('inglobal-BoldItalic'), url('/static/fonts/inglobalbolditalic.woff2') format('woff2'), url('/static/fonts/inglobalbolditalic.woff') format('woff'), url('/static/fonts/inglobalbolditalic.ttf') format('truetype');
+    font-weight: 700;
+    font-style: italic;
+}
+
+*{
+    font-family: 'Inglobal';
+}
+
+
+
+
+
+

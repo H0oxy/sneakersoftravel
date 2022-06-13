@@ -174,5 +174,10 @@ class MakeOrderView(CartMixin, View):
         return HttpResponseRedirect('/checkout/')
 
 
-def render_about(request):
-    return render(request, 'mainapp/about.html')
+class About(View):
+    def get(self, request, *args, **kwargs):
+        categories = Category.objects.get_categories_for_left_sidebar()
+        context = {
+            'categories': categories,
+        }
+        return render(request, 'mainapp/about.html', context)
